@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?fileVersion 4.0.0?>
-
-<cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
 		<cconfiguration id="com.qnx.qcc.toolChain.342790426">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.qnx.qcc.toolChain.342790426" moduleId="org.eclipse.cdt.core.settings" name="Device-Debug">
 				<externalSettings/>
 				<extensions>
-					<extension id="com.qnx.tools.ide.qde.core.QDEBynaryParser" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="com.qnx.tools.ide.qde.core.QDEBynaryParser" point="org.eclipse.cdt.core.BinaryParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -25,7 +23,7 @@
 							<builder autoBuildTarget="Device-Debug" enableAutoBuild="true" id="com.qnx.qcc.toolChain.342790426.531860693" incrementalBuildTarget="Device-Debug" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
 							<tool id="com.qnx.qcc.tool.compiler.1441875895" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
 								<option id="com.qnx.qcc.option.compiler.optlevel.787855829" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
-								<option id="com.qnx.qcc.option.compiler.includePath.135317196" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+								<option id="com.qnx.qcc.option.compiler.includePath.135317196" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/device"/>
 								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.443871564" superClass="com.qnx.qcc.inputType.compiler"/>
@@ -34,7 +32,7 @@
 								<inputType id="com.qnx.qcc.inputType.assembler.367308975" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.linker.2015764743" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
-								<option id="com.qnx.qcc.option.linker.libraries.473190402" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
+								<option id="com.qnx.qcc.option.linker.libraries.473190402" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
 									<listOptionValue builtIn="false" value="bbdevice"/>
 								</option>
 							</tool>
@@ -52,10 +50,10 @@
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.qnx.qcc.toolChain.1134246062" moduleId="org.eclipse.cdt.core.settings" name="Device-Release">
 				<externalSettings/>
 				<extensions>
-					<extension id="com.qnx.tools.ide.qde.core.QDEBynaryParser" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="com.qnx.tools.ide.qde.core.QDEBynaryParser" point="org.eclipse.cdt.core.BinaryParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -97,10 +95,10 @@
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.qnx.qcc.toolChain.60391962" moduleId="org.eclipse.cdt.core.settings" name="Device-Profile">
 				<externalSettings/>
 				<extensions>
-					<extension id="com.qnx.tools.ide.qde.core.QDEBynaryParser" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="com.qnx.tools.ide.qde.core.QDEBynaryParser" point="org.eclipse.cdt.core.BinaryParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -142,10 +140,10 @@
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.qnx.qcc.toolChain.25766569" moduleId="org.eclipse.cdt.core.settings" name="Simulator-Debug">
 				<externalSettings/>
 				<extensions>
-					<extension id="com.qnx.tools.ide.qde.core.QDEBynaryParser" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="com.qnx.tools.ide.qde.core.QDEBynaryParser" point="org.eclipse.cdt.core.BinaryParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -203,4 +201,19 @@
 		</scannerConfigBuildInfo>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Device-Profile">
+			<resource resourceType="PROJECT" workspacePath="/batterysample"/>
+		</configuration>
+		<configuration configurationName="Device-Debug">
+			<resource resourceType="PROJECT" workspacePath="/batterysample"/>
+		</configuration>
+		<configuration configurationName="Simulator-Debug">
+			<resource resourceType="PROJECT" workspacePath="/batterysample"/>
+		</configuration>
+		<configuration configurationName="Device-Release">
+			<resource resourceType="PROJECT" workspacePath="/batterysample"/>
+		</configuration>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>

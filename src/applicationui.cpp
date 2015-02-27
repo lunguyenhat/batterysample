@@ -31,7 +31,7 @@ ApplicationUI::ApplicationUI() :
         QObject()
 {
     t2w = new Talk2WatchInterface(this);
-    uuid = "688fe407-d65c-4e8c-ae57-ee7dc3c919c2";
+    uuid = "6efdb8dce680401eaa4c7b52ba8b3bd3";
 
     const QString dropSQL = "DROP TABLE IF EXISTS customers";
 
@@ -84,7 +84,8 @@ void ApplicationUI::onSystemLanguageChanged()
 void ApplicationUI::sendM(const QString &m)
 {
     QHash<QString, QVariant> values;
-    values.insert("0", "tet");
+    values.insert("0", 40);
+    values.insert("1", "tet");
 
     t2w->sendAppMessage(uuid, values);
     //t2w->sendSms(uuid, m);

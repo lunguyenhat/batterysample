@@ -124,13 +124,9 @@ void Talk2WatchInterface::setAppValues(QString _appName, QString _appVersion, QS
 
 void Talk2WatchInterface::sendAppAuthorizationRequest()
 {
-	QString command = "APP_AUTH_RQ$$";
-	if(m_protocol=="TCP")
-		command += m_appName + "$$" + m_appVersion + "$$" + m_appKey + "$$TCP$$" + m_port + "$$" + m_description;
-	else if(m_protocol=="UDP")
-		command += m_appName + "$$" + m_appVersion + "$$" + m_appKey + "$$UDP$$" + m_port + "$$" + m_description;
-
-	sendCommand(command);
+    QStringList keys = QStringList() << "appVersion" << "port" << "description";
+    QVariantList values = QVariantList() << m_appVersion << m_port << m_description;
+    sendAuthenticatedCommand("APP_AUTH_RQ", "APP_CONNECTION", keys, values);
 }
 
 /*	RECEIVING MESSAGES - STEP 3
@@ -140,14 +136,16 @@ void Talk2WatchInterface::sendAppAuthorizationRequest()
 
 void Talk2WatchInterface::createAction(QString _title, QString _command, QString _description)
 {
-	QString command = "APP_CREATE_ACTION$$" + _title + "$$" + m_appKey + "$$" + m_appName + "$$" + _command + "$$" + _description;
-	sendCommand(command);
+    QStringList keys = QStringList() << "title" << "command" << "description";
+    QVariantList values = QVariantList() << _title << _command << _description;
+    sendAuthenticatedCommand("APP_CREATE_ACTION", "APP_CONNECTION", keys, values);
 }
 
 void Talk2WatchInterface::createAction(QString _title, QString _folder, QString _command, QString _description)
 {
-    QString command = "APP_CREATE_ACTION$$" + _title + "$$" + _folder + "$$" + m_appKey + "$$" + m_appName + "$$" + _command + "$$" + _description;
-    sendCommand(command);
+    QStringList keys = QStringList() << "title" << "folder" << "command" << "description";
+    QVariantList values = QVariantList() << _title << _folder << _command << _description;
+    sendAuthenticatedCommand("APP_CREATE_ACTION", "APP_CONNECTION", keys, values);
 }
 
 void Talk2WatchInterface::createFolder(QString _title)
@@ -157,38 +155,44 @@ void Talk2WatchInterface::createFolder(QString _title)
 
 void Talk2WatchInterface::createFolder(QString _title, QString _parentFolder)
 {
-    QString command = "APP_CREATE_FOLDER$$" + _title + "$$" + _parentFolder + "$$" + m_appName + "$$" + m_appKey;
-    sendCommand(command);
+    QStringList keys = QStringList() << "title" << "parentFolder";
+    QVariantList values = QVariantList() << _title << _parentFolder;
+    sendAuthenticatedCommand("APP_CREATE_FOLDER", "APP_CONNECTION", keys, values);
 }
 
 void Talk2WatchInterface::removeConnection()
 {
-    QString command = "APP_REMOVE_CONNECTION$$" + m_appName + "$$" + m_appKey;
-    sendCommand(command);
+    QStringList keys;
+    QVariantList values;
+    sendAuthenticatedCommand("APP_REMOVE_CONNECTION", "APP_CONNECTION", keys, values);
 }
 
 void Talk2WatchInterface::removeAction(const QString &_action)
 {
-    QString command = "APP_REMOVE_ACTION$$" + _action + "$$" + m_appName + "$$" + m_appKey;
-    sendCommand(command);
+    QStringList keys = QStringList() << "action";
+    QVariantList values = QVariantList() << _action;
+    sendAuthenticatedCommand("APP_REMOVE_ACTION", "APP_CONNECTION", keys, values);
 }
 
 void Talk2WatchInterface::removeFolder(const QString &_folder)
 {
-    QString command = "APP_REMOVE_FOLDER$$" + _folder + "$$" + m_appName + "$$" + m_appKey;
-    sendCommand(command);
+    QStringList keys = QStringList() << "folder";
+    QVariantList values = QVariantList() << _folder;
+    sendAuthenticatedCommand("APP_REMOVE_FOLDER", "APP_CONNECTION", keys, values);
 }
 
 void Talk2WatchInterface::renameAction(const QString &_oldTitle, const QString &_newTitle)
 {
-    QString command = "APP_RENAME_ACTION$$" + _oldTitle + "$$" + _newTitle + "$$" + m_appName + "$$" + m_appKey;
-    sendCommand(command);
+    QStringList keys = QStringList() << "oldTitle" << "newTitle";
+    QVariantList values = QVariantList() << _oldTitle << _newTitle;
+    sendAuthenticatedCommand("APP_RENAME_ACTION", "APP_CONNECTION", keys, values);
 }
 
 void Talk2WatchInterface::renameFolder(const QString &_oldTitle, const QString &_newTitle)
 {
-    QString command = "APP_RENAME_FOLDER$$" + _oldTitle + "$$" + _newTitle + "$$" + m_appName + "$$" + m_appKey;
-    sendCommand(command);
+    QStringList keys = QStringList() << "oldTitle" << "newTitle";
+    QVariantList values = QVariantList() << _oldTitle << _newTitle;
+    sendAuthenticatedCommand("APP_RENAME_FOLDER", "APP_CONNECTION", keys, values);
 }
 
 void Talk2WatchInterface::forwardSourceCode()
@@ -218,14 +222,16 @@ void Talk2WatchInterface::sendAppLaunchRequest(const QString &_uuid)
 
 void Talk2WatchInterface::registerAppMessageListener(const QString &_uuid)
 {
-    QString command = "APP_REGISTER_UUID$$" + _uuid + "$$" + m_appName + "$$" + m_appKey;
-    sendCommand(command);
+    QStringList keys = QStringList() << "uuid";
+    QVariantList values = QVariantList() << _uuid;
+    sendAuthenticatedCommand("APP_REGISTER_UUID", "APP_CONNECTION", keys, values);
 }
 
 void Talk2WatchInterface::deregisterAppMessageListener(const QString &_uuid)
 {
-    QString command = "APP_DEREGISTER_UUID$$" + _uuid + "$$" + m_appName + "$$" + m_appKey;
-    sendCommand(command);
+    QStringList keys = QStringList() << "uuid";
+    QVariantList values = QVariantList() << _uuid;
+    sendAuthenticatedCommand("APP_DEREGISTER_UUID", "APP_CONNECTION", keys, values);
 }
 
 
@@ -258,12 +264,17 @@ void Talk2WatchInterface::sendCommandViaInvocation(QString _command, QString _ta
     m_invokeManager->invoke(request);
 }
 
+void Talk2WatchInterface::sendAuthenticatedCommand(const QString &_type, const QString &_category, const QStringList &_keys, const QVariantList &_values)
+{
+    QStringList keys = QStringList() << "appName" << "appKey" << _keys;
+    QVariantList values = QVariantList() << m_appName << m_appKey << _values;
+    sendCommand(m_serializer->serialize(_type, _category, keys, values));
+}
+
 void Talk2WatchInterface::handleMessage(const QString &_type, const QString &_category, const QHash<QString, QVariant> &_values)
 {
     if(_category=="PEBBLE")
     {
-        qDebug() << _type << _values;
-
         if(_type=="APPMESSAGE_RECEIVED")
         {
             QHash<QString, QVariant> values = _values;
@@ -277,6 +288,52 @@ void Talk2WatchInterface::handleMessage(const QString &_type, const QString &_ca
         else if(_type=="APP_CLOSED")
             emit appClosed(_values.value("uuid").toString());
     }
+    else if(_category=="APP_CONNECTION")
+    {
+        qDebug() << "__RX__" << _type << _values;
+
+        QString action = _values.value("action").toString();
+        QString error = _values.value("error").toString();
+        QString folder = _values.value("folder").toString();
+        QString uuid = _values.value("uuid").toString();
+
+        if(_type=="AUTH_SUCCESS")
+            emit authSuccess();
+        else if(_type=="AUTH_ERROR")
+            emit authError(error);
+        else if(_type=="CREATE_ACTION_SUCCESS")
+            emit actionCreationSuccess(action);
+        else if(_type=="CREATE_ACTION_ERROR")
+            emit actionCreationError(action, error);
+        else if(_type=="REMOVE_ACTION_SUCCESS")
+            emit actionRemovalSuccess(action);
+        else if(_type=="REMOVE_ACTION_ERROR")
+            emit actionRemovalError(action, error);
+        else if(_type=="RENAME_ACTION_SUCCESS")
+            emit actionRenamingSuccess(action);
+        else if(_type=="RENAME_ACTION_ERROR")
+            emit actionRenamingError(action, error);
+        else if(_type=="ACTION_TRIGGERED")
+            emit actionTriggered(_values.value("command").toString());
+        else if(_type=="REMOVE_CONNECTION_SUCCESS")
+            emit connectionRemovalSuccess();
+        else if(_type=="CREATE_FOLDER_SUCCESS")
+            emit folderCreationSuccess(folder);
+        else if(_type=="CREATE_FOLDER_ERROR")
+            emit folderCreationError(folder, error);
+        else if(_type=="REMOVE_FOLDER_SUCCESS")
+            emit folderRemovalSuccess(folder);
+        else if(_type=="REMOVE_FOLDER_ERROR")
+            emit folderRemovalError(folder, error);
+        else if(_type=="RENAME_FOLDER_SUCCESS")
+            emit folderRenamingSuccess(folder);
+        else if(_type=="RENAME_FOLDER_ERROR")
+            emit folderRenamingError(folder, error);
+        else if(_type=="REGISTER_UUID_SUCCESS")
+            emit uuidRegistrationSuccess(uuid);
+        else if(_type=="DEREGISTER_UUID_SUCCESS")
+            emit uuidDeregistrationSucess(uuid);
+    }
 }
 
 /************************************************************
@@ -285,8 +342,6 @@ void Talk2WatchInterface::handleMessage(const QString &_type, const QString &_ca
 
 void Talk2WatchInterface::onDataReived(const QString &_data)
 {
-    qDebug() << "_VALID_?" <<  m_serializer->isValid(_data);
-
 	if(m_serializer->isValid(_data))
 	{
 	    QHash<QString, QVariant> data = m_serializer->deserialize(_data);
@@ -305,7 +360,6 @@ void Talk2WatchInterface::onDataReived(const QString &_data)
 
 void Talk2WatchInterface::onTalk2WatchLookup()
 {
-	qDebug() << "onTalk2WatchProAvailableResponse()";
     bb::system::InvokeQueryTargetsReply *reply = qobject_cast<bb::system::InvokeQueryTargetsReply*>(sender());
     if (reply && reply->error() == bb::system::InvokeReplyError::None)
     {
